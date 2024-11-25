@@ -68,7 +68,7 @@
     const pid = urlParams.get("pid");
 
     // Fetch program from URL
-    fetch(`https://gokulofficial.online/programs.json`)
+    fetch(`https://xgoksx-github-io.vercel.app//programs.json`)
       .then(response => response.json())
       .then(data => {
         const program = data?.programs?.[pid]?.code || "Program not found!";
