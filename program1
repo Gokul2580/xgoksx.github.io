@@ -1,0 +1,32 @@
+import java.io.*;
+import java.net.*;
+import javax.net.ssl.*;
+
+public class FetchFromURL {
+    public static void main(String[] args) throws Exception {
+        // Disable SSL verification (only for dev)
+        TrustManager[] trustAllCertificates = new TrustManager[]{
+            new X509TrustManager() {
+                public X509Certificate[] getAcceptedIssuers() { return null; }
+                public void checkClientTrusted(X509Certificate[] certs, String authType) {}
+                public void checkServerTrusted(X509Certificate[] certs, String authType) {}
+            }
+        };
+        SSLContext sc = SSLContext.getInstance("TLS");
+        sc.init(null, trustAllCertificates, new SecureRandom());
+        HttpsURLConnection.setDefaultSSLSocketFactory(sc.getSocketFactory());
+
+        // Fetch data from URL
+        String url = "https://gokulofficial.online/programs.json?pid=2";
+        HttpURLConnection conn = (HttpURLConnection) new URL(url).openConnection();
+        conn.setRequestMethod("GET");
+        BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+        StringBuilder response = new StringBuilder();
+        String line;
+        while ((line = in.readLine()) != null) response.append(line);
+        in.close();
+
+        // Print response
+        System.out.println(response.toString());
+    }
+}
