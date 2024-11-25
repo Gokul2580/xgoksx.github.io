@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Program Viewer</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-okaidia.min.css" rel="stylesheet" />
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #121212;
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      height: 100vh;
+    }
+    .container {
+      width: 80%;
+      max-width: 800px;
+      margin: auto;
+      background: #1e1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    }
+    h1 {
+      text-align: center;
+      color: #00bcd4;
+    }
+    pre {
+      position: relative;
+      padding: 15px;
+      background: #1e1e1e;
+      border-radius: 5px;
+      overflow: auto;
+    }
+    button {
+      margin-top: 10px;
+      background-color: #00bcd4;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #0097a7;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Program Viewer</h1>
+    <div id="program-container">
+      <p>Loading program...</p>
+    </div>
+    <button id="copy-btn">Copy Code</button>
+  </div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/prism.min.js"></script>
+  <script>
+    // Parse PID from URL
+    const urlParams = new URLSearchParams(window.location.search);
+    const pid = urlParams.get("pid");
+
+    // Fetch program from URL
+    fetch(`https://gokulofficial.online/programs.json`)
+      .then(response => response.json())
+      .then(data => {
+        const program = data?.programs?.[pid]?.code || "Program not found!";
+        const codeBlock = `<pre><code class="language-java">${program}</code></pre>`;
+        document.getElementById("program-container").innerHTML = codeBlock;
+
+        // Highlight code
+        Prism.highlightAll();
+      })
+      .catch(err => {
+        document.getElementById("program-container").innerHTML = `<p>Error fetching program: ${err.message}</p>`;
+      });
+
+    // Copy Code to Clipboard
+    document.getElementById("copy-btn").addEventListener("click", () => {
+      const code = document.querySelector("code").innerText;
+      navigator.clipboard.writeText(code).then(() => {
+        alert("Code copied to clipboard!");
+      });
+    });
+  </script>
+</body>
+</html>
