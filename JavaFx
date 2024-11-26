@@ -1,1 +1,29 @@
-PROGRAM:Adding Buttons to flow paneimport javafx.application. Application; import javafx.scene.Group;import javafx.scene.Scene;import javafx.scene.control.Button; importjavafx.scene.layout. Flow Pane;import javafx.stage.Stage; from www ja va2 s. com*/ public class Main extends Application {public void start(Stage stage) { stage.setTitle("HTML"); stage.setWidth(500); stage.setHeight(500);Scene scene = new Scene(new Group()); Flow Pane flow= new Flow Pane(); flow.setVgap(8):flow.setHgap(4); flow.setPrefWrapLength(300); // preferred width = 300 for (int i=0; i<10; i++) {flow.getChildren().add(new Button("asdf"));}scene.setRoot(flow): stage.setScene(scene); stage.show();}public static void main(String[] args) { launch(args);}}
+ 
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+importjavafx.scene.layout.Flow Pane;
+import javafx.stage.Stage;
+ public class Main extends Application
+{
+  public void start(Stage stage)
+  {
+    stage.setTitle("HTML");
+    stage.setWidth(500);
+    stage.setHeight(500);
+    Scene scene = new Scene(new Group());
+    Flow Pane flow = new Flow Pane();
+    flow
+      .setVgap(8)
+      : flow.setHgap(4);
+    flow.setPrefWrapLength(
+      300);
+ // preferred width = 300 
+for (int i=0; i<10; i++)
+             {
+flow.getChildren().add(new Button("asdf"));}scene.setRoot(flow):
+             stage.setScene(scene); stage.show();}
+public static void main(String[] args) { 
+launch(args);
+}}
